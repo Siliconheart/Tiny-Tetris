@@ -1,11 +1,12 @@
-# Tiny-Tetris
+# Tiny-Tetris Blue Pill STM32
 
-Tetris Clone with OLED SSD1306(I2C) for Arduino Nano / Uno
-
+This is an attempt to port AJRussell's Tetris Clone with OLED SSD1306(I2C) for Arduino Nano / Uno to Blue Pill (STM32F103C8T6)
 
 The code is not finished, there is still lots to be done.
 
 Things that need to be added:
+
+1. Make it run on STM32
 
 High score functionality.
 
