@@ -1,6 +1,7 @@
 /* Tiny Tetris V0.94 
                                     
 Copyright (C) 2016 Anthony Russell
+Port to STM32 (C) 2020 Siliconheart
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
@@ -21,6 +22,7 @@ Create defines for all the magic numbers but they are useful for now.
 
 */
 
+#include <SPI.h>
 #include <Wire.h>
 #include "TetrisTheme.cpp"
 #include "dpad.cpp"
@@ -181,9 +183,9 @@ const byte brickLogo[36][8] PROGMEM= {
 #define KEY_DOWN    3
 #define KEY_ROTATE  4
 
-#define PIEZO_PIN   3
-#define LED_PIN     13
-#define KEYPAD_PIN  A0
+#define PIEZO_PIN   PB9
+#define LED_PIN     PC13
+#define KEYPAD_PIN  PA0
 
 //struct for pieces
 
@@ -237,8 +239,9 @@ void OLEDData(byte data) {
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial);
+  Serial.println("Serial started");
 
   Wire.begin();
   Wire.setClock(400000);
@@ -263,13 +266,13 @@ void setup() {
   randomSeed(analogRead(7)); /// To do: create a decent random number generator.
 
   // blink led
-  digitalWrite(LED_PIN, HIGH);
+  digitalWrite(LED_PIN, LOW);
   delay(100);
-  digitalWrite(LED_PIN, LOW);
-  delay(200);
   digitalWrite(LED_PIN, HIGH);
-  delay(50);
+  delay(200);
   digitalWrite(LED_PIN, LOW);
+  delay(50);
+  digitalWrite(LED_PIN, HIGH);
 }
 
 
@@ -1302,4 +1305,3 @@ void loop() {
     }
   }
 }
-
